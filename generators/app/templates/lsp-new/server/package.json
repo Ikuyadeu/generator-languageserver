@@ -1,5 +1,5 @@
 {
-  "name": "sample-server",
+  "name": <%- JSON.stringify(serverName) %>,
   "version": "0.0.1",
   "author": "{Your name}",
   "description": "Language server sample",
@@ -8,7 +8,7 @@
   },
   "license": "MIT",
   "bin": {
-    "sample-server": "./bin/sample-server"
+    <%- JSON.stringify(serverName) %>: "./bin/<%= serverName %>"
   },
   "repository": {
     "type": "git",

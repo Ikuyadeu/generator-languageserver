@@ -11,8 +11,8 @@ module.exports = {
         await prompts.askForExtensionId(generator, extensionConfig);
         await prompts.askForExtensionDescription(generator, extensionConfig);
 
-        await prompts.askForLanguageId(generator, extensionConfig);
         await prompts.askForLanguageName(generator, extensionConfig);
+        await prompts.askForLanguageId(generator, extensionConfig);
         await prompts.askForLanguageExtensions(generator, extensionConfig);
         await prompts.askForLanguageScopeName(generator, extensionConfig);
 

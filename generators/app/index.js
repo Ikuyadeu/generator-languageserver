@@ -1,5 +1,6 @@
 "use strict";
 
+const path = require('path');
 const Generator = require("yeoman-generator");
 const chalk = require("chalk");
 const yosay = require("yosay");
@@ -10,7 +11,7 @@ const completion = require('./generate-completion');
 const lint = require('./generate-lint');
 
 const languageServerGenerators = [
-    newLsp, completion, lint
+    newLsp
 ]
 
 module.exports = class extends Generator {
@@ -59,11 +60,12 @@ module.exports = class extends Generator {
         try {
             await this.languageServerGenerator.prompting(this, this.languageServerConfig);
         } catch (e) {
+            console.log(e);
             this.abort = true;
         }
     }
 
-    writing() {
+    async writing() {
         if (this.abort) {
             return;
         }
@@ -76,20 +78,10 @@ module.exports = class extends Generator {
         this.log(`Writing in ${this.destinationPath()}...`);
 
         this.sourceRoot(path.join(__dirname, './templates/' + this.languageServerConfig.type));
-
-        return this.languageServerGenerator.writing(this, this.languageServerConfig);
-    }
-
-    // Installation
-    install() {
-        if (this.abort) {
-            this.env.options.skipInstall = true;
-            return;
-        }
-        if (this.languageServerConfig.installDependencies) {
-            this.env.options.nodePackageManager = this.languageServerConfig.pkgManager;
-        } else {
-            this.env.options.skipInstall = true;
+        try {
+            this.languageServerGenerator.writing(this, this.languageServerConfig);
+        } catch (e) {
+            console.log(e);
         }
     }
 

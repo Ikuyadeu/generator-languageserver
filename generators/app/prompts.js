@@ -1,4 +1,65 @@
 /**
+ * @param {import('yeoman-generator')} generator
+ * @param {Object} extensionConfig
+ */
+exports.askForLanguageName = async (generator, extensionConfig) => {
+    generator.log('Enter the name of the language. The name will be shown in the VS Code editor mode selector.');
+    const nameAnswer = await generator.prompt({
+        type: 'input',
+        name: 'languageName',
+        message: 'Language name:',
+        default: extensionConfig.languageName,
+    });
+    extensionConfig.languageName = nameAnswer.languageName;
+}
+
+/**
+ * @param {import('yeoman-generator')} generator
+ * @param {Object} extensionConfig
+ */
+exports.askForLanguageId = async (generator, extensionConfig) => {
+    generator.log('Enter the id of the language. The id is an identifier and is single, lower-case name such as \'php\', \'javascript\'');
+    const idAnswer = await generator.prompt({
+        type: 'input',
+        name: 'languageId',
+        message: 'Language id:',
+        default: extensionConfig.languageName.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+    });
+    extensionConfig.languageId = idAnswer.languageId;
+}
+
+/**
+ * @param {import('yeoman-generator')} generator
+ * @param {Object} extensionConfig
+ */
+exports.askForLanguageExtensions = async (generator, extensionConfig) => {
+    extensionConfig.languageExtensions = [];
+    generator.log('Enter the file extensions of the language. Use commas to separate multiple entries (e.g. .ruby, .rb)');
+    const extAnswer = await generator.prompt({
+        type: 'input',
+        name: 'languageExtensions',
+        message: 'File extensions:',
+        default: `.${extensionConfig.languageId}`,
+    });
+    extensionConfig.languageExtensions = extAnswer.languageExtensions.split(',').map(e => { return e.trim(); });
+}
+
+/**
+ * @param {import('yeoman-generator')} generator
+ * @param {Object} extensionConfig
+ */
+exports.askForLanguageScopeName = async (generator, extensionConfig) => {
+    generator.log('Enter the root scope name of the grammar (e.g. source.ruby)');
+    const extAnswer = await generator.prompt({
+        type: 'input',
+        name: 'languageScopeName',
+        message: 'Scope names:',
+        default: `source.${extensionConfig.languageId}`,
+    });
+    extensionConfig.languageScopeName = extAnswer.languageScopeName;
+}
+
+/**
  * Ask for server id ("name" in server/package.json)
 * @param {import('yeoman-generator')} generator
 * @param {Object} languageServerConfig
@@ -20,7 +81,7 @@ exports.askForServerId = async (generator, languageServerConfig) => {
         type: 'input',
         name: 'serverName',
         message: 'What\'s the identifier of your server?',
-        default: 'server'
+        default: `${languageServerConfig.languageId}-server`,
     });
     languageServerConfig.serverName = nameAnswer.serverName;
 }
@@ -47,7 +108,7 @@ exports.askForExtensionDisplayName = async (generator, extensionConfig) => {
         type: 'input',
         name: 'displayName',
         message: 'What\'s the name of your extension?',
-        default: nameFromFolder
+        default: extensionConfig.languageName,
     });
     extensionConfig.displayName = displayNameAnswer.displayName;
 }
@@ -76,8 +137,7 @@ exports.askForExtensionId = async (generator, extensionConfig) => {
         type: 'input',
         name: 'name',
         message: 'What\'s the identifier of your extension?',
-        default: def || '',
-        validate: validator.validateExtensionId
+        default: def || ''
     });
     extensionConfig.name = nameAnswer.name;
 }
@@ -131,62 +191,3 @@ exports.askForGit = async (generator, extensionConfig) => {
     extensionConfig.gitInit = gitAnswer.gitInit;
 }
 
-/**
- * @param {import('yeoman-generator')} generator
- * @param {Object} extensionConfig
- */
-exports.askForLanguageId = async (generator, extensionConfig) => {
-    generator.log('Enter the id of the language. The id is an identifier and is single, lower-case name such as \'php\', \'javascript\'');
-    const idAnswer = await generator.prompt({
-        type: 'input',
-        name: 'languageId',
-        message: 'Language id:',
-        default: extensionConfig.languageId,
-    });
-    extensionConfig.languageId = idAnswer.languageId;
-}
-
-/**
- * @param {import('yeoman-generator')} generator
- * @param {Object} extensionConfig
- */
-exports.askForLanguageName = async (generator, extensionConfig) => {
-    generator.log('Enter the name of the language. The name will be shown in the VS Code editor mode selector.');
-    const nameAnswer = await generator.prompt({
-        type: 'input',
-        name: 'languageName',
-        message: 'Language name:',
-        default: extensionConfig.languageName,
-    });
-    extensionConfig.languageName = nameAnswer.languageName;
-}
-
-/**
- * @param {import('yeoman-generator')} generator
- * @param {Object} extensionConfig
- */
-exports.askForLanguageExtensions = async (generator, extensionConfig) => {
-    generator.log('Enter the file extensions of the language. Use commas to separate multiple entries (e.g. .ruby, .rb)');
-    const extAnswer = await generator.prompt({
-        type: 'input',
-        name: 'languageExtensions',
-        message: 'File extensions:',
-        default: extensionConfig.languageExtensions.join(', '),
-    });
-    extensionConfig.languageExtensions = extAnswer.languageExtensions.split(',').map(e => { return e.trim(); });
-}
-
-/**
- * @param {import('yeoman-generator')} generator
- * @param {Object} extensionConfig
- */
-exports.askForLanguageScopeName = async (generator, extensionConfig) => {
-    generator.log('Enter the root scope name of the grammar (e.g. source.ruby)');
-    const extAnswer = await generator.prompt({
-        type: 'input',
-        name: 'languageScopeName',
-        message: 'Scope names:',
-        default: extensionConfig.languageScopeName,
-    });
-    extensionConfig.languageScopeName = extAnswer.languageScopeName;
-}

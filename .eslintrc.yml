@@ -1,0 +1,11 @@
+---
+  env:
+    es2017: true
+
+  rules:
+    indent:
+      - error
+      - 4
+      - SwitchCase: 1
+        FunctionDeclaration:
+          body: 1

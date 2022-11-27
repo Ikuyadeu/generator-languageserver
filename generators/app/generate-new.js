@@ -34,7 +34,7 @@ module.exports = {
         generator.fs.copyTpl(generator.templatePath('.eslintrc.base.json'), generator.destinationPath('.eslintrc.base.json'));
 
         if (languageServerConfig.gitInit) {
-            generator.fs.copy(generator.templatePath('.gitignore'), generator.destinationPath('.gitignore'));
+            generator.fs.copy(generator.templatePath('gitignore'), generator.destinationPath('.gitignore'));
         }
 
         generator.fs.copyTpl(generator.templatePath('client/src/extension.ts'), generator.destinationPath('client/src/extension.ts'), languageclientConfig);

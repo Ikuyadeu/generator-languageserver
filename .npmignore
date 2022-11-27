@@ -1,0 +1,12 @@
+/test
+/.vscode
+/.github
+/.editorconfig
+/.eslintignore
+/.eslintrc.yml
+/.gitattributes
+/.travis.yml
+/jsconfig.json
+/.azure-pipelines.yml
+/.dockerignore
+/Dockerfile

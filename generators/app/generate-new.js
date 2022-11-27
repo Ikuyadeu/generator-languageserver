@@ -37,8 +37,8 @@ module.exports = {
             generator.fs.copy(generator.templatePath('gitignore'), generator.destinationPath('.gitignore'));
         }
 
-        generator.fs.copyTpl(generator.templatePath('client/src/extension.ts'), generator.destinationPath('client/src/extension.ts'), languageclientConfig);
-        generator.fs.copyTpl(generator.templatePath('client/tsconfig.json'), generator.destinationPath('client/tsconfig.json'), languageclientConfig);
+        generator.fs.copyTpl(generator.templatePath('client/src/extension.ts'), generator.destinationPath('client/src/extension.ts'), languageServerConfig);
+        generator.fs.copyTpl(generator.templatePath('client/tsconfig.json'), generator.destinationPath('client/tsconfig.json'), languageServerConfig);
         generator.fs.copyTpl(generator.templatePath('client/.eslintrc.json'), generator.destinationPath('client/.eslintrc.json'));
         generator.fs.copyTpl(generator.templatePath('client/.eslintignore'), generator.destinationPath('client/.eslintignore'));
         generator.fs.copyTpl(generator.templatePath('client/webpack.config.js'), generator.destinationPath('client/webpack.config.js'));

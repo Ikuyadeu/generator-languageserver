@@ -1,6 +1,6 @@
 {
   "name": "generator-languageserver",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Yoeman generator for Visual Studio Code Language Server Protocol extension",
   "homepage": "https://github.com/Ikuyadeu/vscode-generator-languageserver",
   "author": {

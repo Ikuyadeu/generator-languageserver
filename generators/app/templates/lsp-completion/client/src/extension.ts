@@ -11,7 +11,7 @@ import {
 let client: LanguageClient;
 
 // 拡張機能が有効になったときに呼ばれる
-export async function activate(context: ExtensionContext) {
+export function activate(context: ExtensionContext): void {
 	// サーバーのパスを取得
 	const serverModule =  Uri.joinPath(context.extensionUri, 'server', 'out', 'server.js').fsPath;
 	// デバッグ時の設定
@@ -46,7 +46,7 @@ export async function activate(context: ExtensionContext) {
 
 	try {
 		// LSPを起動
-		client = new LanguageClient(<%- JSON.stringify(name) %>,  <%- JSON.stringify(serverName) %>,  serverOptions, clientOptions);
+		client = new LanguageClient(<%- JSON.stringify(name) %>, <%- JSON.stringify(serverName) %>, serverOptions, clientOptions);
 	} catch (err) {
 		void Window.showErrorMessage('拡張機能の起動に失敗しました。詳細はアウトプットパネルを参照ください');
 		return;

@@ -11,7 +11,7 @@ const completion = require('./generate-completion');
 const lint = require('./generate-lint');
 
 const languageServerGenerators = [
-    newLsp
+    newLsp, completion
 ]
 
 module.exports = class extends Generator {
@@ -49,7 +49,7 @@ module.exports = class extends Generator {
             this.languageServerConfig.type = (await this.prompt({
                 type: 'list',
                 name: 'type',
-                message: 'What type of language erver extension do you want to create?',
+                message: 'What type of language server extension do you want to create?',
                 pageSize: choices.length,
                 choices,
             })).type;

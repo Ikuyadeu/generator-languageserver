@@ -37,7 +37,7 @@ module.exports = {
             generator.fs.copy(generator.templatePath('gitignore'), generator.destinationPath('.gitignore'));
         }
 
-        generator.fs.copy(generator.templatePath('client'), generator.destinationPath('client'));
+        generator.fs.copyTpl(generator.templatePath('client'), generator.destinationPath('client'), languageServerConfig);
 
         generator.fs.copyTpl(generator.templatePath('server/src/server.ts'), generator.destinationPath('server/src/server.ts'));
         generator.fs.copyTpl(generator.templatePath('server/package.json'), generator.destinationPath('server/package.json'), languageServerConfig);
